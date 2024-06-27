@@ -1,0 +1,25 @@
+footer {
+    margin: auto;
+    text-align: center;
+}
+
+table {
+    font-size: smaller;
+}
+
+th,
+td {
+    padding: 0.3em;
+}
+
+/* .icon::cue {
+    content: url('cog.svg');
+} */
+
+
+.cog {
+    background-image: url('cog.svg');
+    background-repeat: no-repeat;
+    padding-left: 22px;
+    background-position: 0 50%;
+}
