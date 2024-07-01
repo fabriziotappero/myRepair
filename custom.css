@@ -16,3 +16,20 @@ footer {
     color: lightgray;
     font-size: smaller;
 }
+
+/* Ensure table rows are positioned relative */
+table.striped tbody tr {
+    position: relative;
+}
+
+/* Add Font Awesome pen icon on hover */
+table.striped tbody tr:hover::after {
+    content: "\f304";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+}
