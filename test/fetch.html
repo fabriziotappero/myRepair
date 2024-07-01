@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data Example</title>
+</head>
+
+<body>
+    <h1>Fetch Data from Free Database</h1>
+    <button id="fetch-data">Fetch Data</button>
+    <pre id="output"></pre>
+
+    <script>
+        document.getElementById('fetch-data').addEventListener('click', fetchData);
+
+        function fetchData() {
+            // URL of the free database API
+            const url = 'https://jsonplaceholder.typicode.com/posts';
+
+            // Use the Fetch API to get data
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    displayData(data);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+
+        function displayData(data) {
+            const outputElement = document.getElementById('output');
+            outputElement.textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+
+</html>

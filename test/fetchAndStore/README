@@ -1,0 +1,23 @@
+This is a simple example of a JS script that pull data from the open database on jsonplaceholder.typicode.com and write it to a locally running PocketBase database.
+
+Note that to write staff in the local database, the script needs to login as an admin.
+
+Start poketbase locally:
+
+    poketbase serve
+
+Go to http://127.0.0.1:8090/_/ create a user, login and create a new collection named *posts*:
+
+Add fields to match the JSONPlaceholder post structure:
+
+    userId (number)
+    title (text)
+    body (text)
+
+Run the cron script to fetch and store data locally every minute:
+
+    npm init-y
+    npm install axios node-cron pocketbase
+    node fetchAndStore.js
+
+You can use getToken.html to get the token from your backend.
