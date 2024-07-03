@@ -3,14 +3,13 @@ footer {
     text-align: center;
 }
 
-table {
-    font-size: smaller;
-}
+/* table {
+    font-size: small;
+} */
 
-th,
-td {
-    padding-right: 0.3em;
-    padding-left: 0.3em;
+td,
+th {
+    padding: 0.7em 0.3em;
 }
 
 footer {
