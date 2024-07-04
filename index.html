@@ -14,7 +14,7 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="assets/custom.css">
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 
     <title>My Repair</title>
@@ -105,7 +105,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js').then(function (registration) {
+                navigator.serviceWorker.register('assets/sw.js').then(function (registration) {
                     console.log('Service Worker registered with scope:', registration.scope);
                 }, function (err) {
                     console.log('Service Worker registration failed:', err);
