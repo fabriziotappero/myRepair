@@ -1,6 +1,6 @@
 {
-    "name": "My Repair",
-    "short_name": "Repair",
+    "name": "MyRepair",
+    "short_name": "MyRepair",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#ffffff",
