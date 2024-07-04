@@ -1,7 +1,7 @@
 {
-    "name": "My Repear",
-    "short_name": "Repear",
-    "start_url": "/index.html",
+    "name": "My Repair",
+    "short_name": "Repair",
+    "start_url": "/myRepair/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
