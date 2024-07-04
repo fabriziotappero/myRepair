@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body>
+    <div x-data="indexComponent()">
+        <template x-if="isLoggedIn">
+            <div>
+                <h1>Welcome to the Index Page!</h1>
+                <button @click="logout">Logout</button>
+            </div>
+        </template>
+        <template x-if="!isLoggedIn">
+            <div>
+                <h1>You are not logged in. Please <a href="login.html">login</a>.</h1>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        function indexComponent() {
+            return {
+                isLoggedIn: false,
+                init() {
+                    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                },
+                logout() {
+                    localStorage.removeItem('isLoggedIn');
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

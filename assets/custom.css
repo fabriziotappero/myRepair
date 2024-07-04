@@ -33,3 +33,11 @@ table.striped tbody tr:hover::after {
     transform: translateY(-50%);
     display: inline-block;
 }
+
+
+.logo,
+img {
+    -webkit-filter: grayscale(10%);
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
