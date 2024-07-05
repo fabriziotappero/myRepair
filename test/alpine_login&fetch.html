@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to PocketBase</title>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body>
+    <div x-data="loginForm()" class="login-form">
+        <h2>Login</h2>
+        <form @submit.prevent="login">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" x-model="email" required>
+                <!-- <label for="user">User:</label>
+                <input type="user" id="email" x-model="email" required> -->
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" x-model="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p x-text="message"></p>
+        <p x-show="token"><span x-text="token"></span></p>
+        <div x-show="collection.length > 0">
+            <h3>Collection Data:</h3>
+            <ul>
+                <template x-for="item in collection" :key="item.id">
+                    <li x-text="item.text1"></li>
+                </template>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function loginForm() {
+            return {
+                email: '',
+                password: '',
+                message: '',
+                token: '',
+                collection: [],
+                async login() {
+                    try {
+                        const res = await fetch('https://fabdb.pockethost.io/api/collections/users/auth-with-password', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ identity: this.email, password: this.password })
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            this.message = 'Login successful!';
+                            this.token = data.token;
+                            await this.fetchCollectionData();
+                        } else {
+                            this.message = 'Login failed: ' + data.message;
+                            this.token = '';
+                        }
+                    } catch (error) {
+                        this.message = 'Login failed: ' + error.message;
+                    }
+                },
+                async fetchCollectionData() {
+                    try {
+                        const res = await fetch('https://fabdb.pockethost.io/api/collections/test_collection/records', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${this.token}`
+                            }
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            this.collection = data.items;  // Adjust depending on your API response structure
+                        } else {
+                            this.message = 'Failed to fetch collection data: ' + data.message;
+                        }
+                    } catch (error) {
+                        this.message = 'Failed to fetch collection data: ' + error.message;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
