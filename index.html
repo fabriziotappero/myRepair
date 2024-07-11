@@ -10,7 +10,6 @@
 
     <script defer src="assets/alpine.min.js"></script>
     <script src="assets/page_logic.js" defer></script>
-    <script src="assets/sign.js"></script>
 
     <!-- icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -39,7 +38,7 @@
     </nav>
     <hr>
 
-    <main class="container">
+    <main class="container" x-data="data()" x-init="init()">
 
         <!-- Signin -->
         <div id="signin" x-data="signinForm()" x-show="!sessionStorage.hasOwnProperty('isSignedIn')">
@@ -47,9 +46,8 @@
         </div>
 
         <!-- main -->
-        <div id="main" x-data="data()" x-show="sessionStorage.hasOwnProperty('isSignedIn')">
+        <div id="main" x-show="sessionStorage.hasOwnProperty('isSignedIn')">
 
-            <a @click="fetchCollection()" x-data="">download</a>
             <table class="striped">
                 <thead>
                     <tr>
@@ -63,9 +61,9 @@
                     <template x-for="item in collection" :key="item.id">
                         <tr>
                             <td><i class="fa-regular fa-sun" style="color:green"></i></td>
-                            <td x-text="item.name"></td>
-                            <td x-text="item.text"></td>
-                            <td x-text="item.num"></td>
+                            <td x-text="item.rider_id"></td>
+                            <td x-text="item.repairer_id"></td>
+                            <td x-text="item.plate"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -87,9 +85,9 @@
                 });
             });
         }
-    </script>
 
-    <script>
+
+
         function data() {
             return {
                 message: '',
@@ -97,7 +95,8 @@
                 async fetchCollection() {
                     try {
                         token = sessionStorage.getItem('token') || '';
-                        const res = await fetch('https://fabdb.pockethost.io/api/collections/test_collection/records', {
+                        const db_url = 'https://fabdb.pockethost.io';
+                        const res = await fetch(db_url + '/api/collections/myrepair_vehicles/records', {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -106,7 +105,6 @@
                         });
                         const data = await res.json();
                         if (res.ok) {
-                            // console.log(data.items);
                             this.collection = data.items;
                         } else {
                             this.message = 'Failed to fetch collection data: ' + data.message;
@@ -114,8 +112,65 @@
                     } catch (error) {
                         this.message = 'Failed to fetch collection data: ' + error.message;
                     }
+                },
+                init() {
+                    if (sessionStorage.hasOwnProperty('isSignedIn')) {
+                        // Fetch data when browser is reloaded
+                        this.fetchCollection();
+                    }
                 }
             }
+        }
+
+        function signinForm() {
+            return {
+                username: '',
+                password: '',
+                message: '',
+                async signin() {
+                    try {
+                        const db_url = 'https://fabdb.pockethost.io';
+                        const response = await fetch(db_url + '/api/collections/users/auth-with-password', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                identity: this.username,
+                                password: this.password
+                            })
+                        });
+                        const data = await response.json();
+
+                        if (data.token) {
+                            this.message = 'Signin successful!';
+                            sessionStorage.setItem("token", data.token);
+                            sessionStorage.setItem("isSignedIn", "true");
+
+                            // Fetch the collection data after successful sign-in
+                            this.fetchCollection();
+                            // can I avoid reloading the whole page?
+                            location.reload();
+
+                        } else {
+                            this.message = data.message || 'Invalid username or password.';
+                        }
+                    } catch (error) {
+                        this.message = 'An error occurred. Please try again.';
+                    }
+                }
+            }
+        }
+
+        function signoutLink() {
+            return {
+                signout() {
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('isSignedIn');
+                    // can I avoid reloading the whole page?
+                    location.reload();
+                }
+            };
         }
     </script>
 
