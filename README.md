@@ -24,3 +24,10 @@ use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https
 - [ ] Design main data viewer/editor in data.html
 - [ ] Modify data.html to provide different subset of data according to what user is logged in
 - [ ] Implement simple edit data in data.html
+
+## Interesting Topics
+
+While developing this app, I faced some interesting problems worth mentioning.
+
+Where to store a token?
+https://blog.ropnop.com/storing-tokens-in-browser/

@@ -3,119 +3,122 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="manifest" href="manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> -->
-    <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="data:,">
+
+    <script defer src="assets/alpine.min.js"></script>
+    <script src="assets/page_logic.js" defer></script>
+    <script src="assets/sign.js"></script>
+
+    <!-- icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
     <link rel="stylesheet" href="assets/custom.css">
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 
     <title>My Repair</title>
 </head>
 
 <body>
 
+    <!-- navbar -->
     <nav class="container-fluid">
         <ul>
             <img class="logo" src="assets/icon192.png" alt="" width="50" height="50">
         </ul>
         <ul>
-            <li>
-                <a href="#">
-                    <span class="fa-stack fa-1x">
-                        <i class="fa-solid fa-square fa-stack-2x"></i>
-                        <i class="fa-regular fa-user fa-inverse fa-stack-1x"></i>
-                    </span>
-                </a>
+            <li><a @click="signout()" x-data="signoutLink()" x-show="sessionStorage.hasOwnProperty('isSignedIn')">Sign
+                    out</a>
             </li>
         </ul>
     </nav>
-    <!-- <hr /> -->
+    <hr>
 
     <main class="container">
 
-        <table class="striped">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col"><i class="fa-solid fa-motorcycle fa-xl"></i></th>
-                    <th scope="col"><i class="fa-solid fa-wrench fa-xl"></i></th>
-                    <th scope="col"><i class="fa-solid fa-house-user fa-xl"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><i class="fa-solid fa-screwdriver-wrench" style="color:red"></i></td>
-                    <td>Jose Macha</td>
-                    <td>Reparación Luis</td>
-                    <td>Uber Eat</td>
-                </tr>
-                <tr>
-                    <td><i class="fa-regular fa-clock" style="color:orange"></i></td>
-                    <td>Miguel Roma</td>
-                    <td>-</td>
-                    <td>Glovo</td>
-                </tr>
+        <!-- Signin -->
+        <div id="signin" x-data="signinForm()" x-show="!sessionStorage.hasOwnProperty('isSignedIn')">
+            <div id="signinContainer"></div>
+        </div>
 
-                <tr>
-                    <td><i class="fa-regular fa-sun" style="color:green"></i></td>
-                    <td>Tomas Mola</td>
-                    <td>-</td>
-                    <td>Hola Restaurante</td>
-                </tr>
-                <tr>
-                    <td><i class="fa-regular fa-sun" style="color:green"></i></td>
-                    <td>Jose Macha</td>
-                    <td>Reparación Luis</td>
-                    <td>Uber Eat</td>
-                </tr>
-                <tr>
-                    <td><i class="fa-solid fa-screwdriver-wrench" style="color:red"></i></td>
-                    <td>Tomas Mola</td>
-                    <td>-</td>
-                    <td>Hola Restaurante</td>
-                </tr>
-                <tr>
-                    <td><i class=" fa-regular fa-sun" style="color:green"></i></td>
-                    <td>Jose Macha</td>
-                    <td>Reparación Luis</td>
-                    <td>Uber Eat</td>
-                </tr>
-                <tr>
-                    <td><i class="fa-regular fa-sun" style=" color:green"></i></td>
-                    <td>Tomas Mola</td>
-                    <td>-</td>
-                    <td>Hola Restaurante</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- main -->
+        <div id="main" x-data="data()" x-show="sessionStorage.hasOwnProperty('isSignedIn')">
 
-        <section>
-
-
-        </section>
-
+            <a @click="fetchCollection()" x-data="">download</a>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"><i class="fa-solid fa-motorcycle fa-xl"></i></th>
+                        <th scope="col"><i class="fa-solid fa-wrench fa-xl"></i></th>
+                        <th scope="col"><i class="fa-solid fa-house-user fa-xl"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="item in collection" :key="item.id">
+                        <tr>
+                            <td><i class="fa-regular fa-sun" style="color:green"></i></td>
+                            <td x-text="item.name"></td>
+                            <td x-text="item.text"></td>
+                            <td x-text="item.num"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </main>
 
-    <footer>Copyright &copy; 2024</footer>
+    <!-- footer -->
+    <footer>Copyright &copy; <span x-data="" x-text="new Date().getFullYear()"></span></footer>
+
 
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('assets/sw.js').then(function (registration) {
-                    console.log('Service Worker registered with scope:', registration.scope);
+                    //console.log('Service Worker registered with scope:', registration.scope);
                 }, function (err) {
                     console.log('Service Worker registration failed:', err);
                 });
             });
         }
     </script>
+
+    <script>
+        function data() {
+            return {
+                message: '',
+                collection: [],
+                async fetchCollection() {
+                    try {
+                        token = sessionStorage.getItem('token') || '';
+                        const res = await fetch('https://fabdb.pockethost.io/api/collections/test_collection/records', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            // console.log(data.items);
+                            this.collection = data.items;
+                        } else {
+                            this.message = 'Failed to fetch collection data: ' + data.message;
+                        }
+                    } catch (error) {
+                        this.message = 'Failed to fetch collection data: ' + error.message;
+                    }
+                }
+            }
+        }
+    </script>
+
 
 </body>
 

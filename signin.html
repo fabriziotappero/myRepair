@@ -1,30 +1,9 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark" />
-
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-    <link rel="stylesheet" href="custom.css">
-
-    <title>My Repear</title>
-</head>
-
-<body>
-    <form>
-        <div class="container">
-            <p>Log in your existing account or <a href="#">create a new account</a>.</p>
-            <input type="text" name="username" placeholder="e-mail address" aria-label="Username" required />
-            <input type="text" name="password" placeholder="password" aria-label="Password" required />
-            <button type="submit">Sign in</button>
-            <p><a href="#">Forgot your password?</a></p>
-            <div class="max-width-400">
+<div x-data="signinForm()" class="signin-form container" style="max-width: 500px;">
+    <form @submit.prevent="signin">
+        <h3>SIGN IN</h3>
+        <input type="text" name="username" placeholder="Username" x-model="username" required />
+        <input type="password" name="password" placeholder="Password" x-model="password" required />
+        <button type="submit">Sign in</button>
     </form>
-</body>
-
-</html>
+    <div x-show="message" x-text="message"></div>
+</div>
