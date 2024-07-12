@@ -1,3 +1,4 @@
+// Load Signin form at page reload
 document.addEventListener('DOMContentLoaded', () => {
     fetch('signin.html')
         .then(response => response.text())
@@ -6,4 +7,3 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error loading signin.html:', error));
 });
-

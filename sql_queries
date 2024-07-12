@@ -1,0 +1,16 @@
+SELECT 
+    v.id, 
+    v.plate, 
+    v.type AS vehicle_type, 
+    u.name, 
+    u.type AS user_type, 
+    u.phone_number, 
+    u.email 
+FROM 
+    myrepair_vehicles v
+JOIN 
+    myrepair_users u
+ON 
+    v.rider_id = u.id OR v.repairer_id = u.id;
+
+

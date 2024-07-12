@@ -9,7 +9,7 @@
     <link rel="icon" href="data:,">
 
     <script defer src="assets/alpine.min.js"></script>
-    <script src="assets/page_logic.js" defer></script>
+    <script src="assets/events.js" defer></script>
 
     <!-- icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -23,7 +23,7 @@
     <title>My Repair</title>
 </head>
 
-<body>
+<body x-data="global_scope()" x-init="init()">
 
     <!-- navbar -->
     <nav class="container-fluid">
@@ -38,7 +38,7 @@
     </nav>
     <hr>
 
-    <main class="container" x-data="data()" x-init="init()">
+    <main class="container">
 
         <!-- Signin -->
         <div id="signin" x-data="signinForm()" x-show="!sessionStorage.hasOwnProperty('isSignedIn')">
@@ -69,13 +69,18 @@
                 </tbody>
             </table>
         </div>
+
     </main>
 
     <!-- footer -->
-    <footer>Copyright &copy; <span x-data="" x-text="new Date().getFullYear()"></span></footer>
+    <footer>Copyright &copy; <span x-text="new Date().getFullYear()"></span></footer>
 
 
     <script>
+
+        // Global constants
+        const DB_URL = 'https://fabdb.pockethost.io';
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('assets/sw.js').then(function (registration) {
@@ -86,17 +91,14 @@
             });
         }
 
-
-
-        function data() {
+        function global_scope() {
             return {
                 message: '',
                 collection: [],
                 async fetchCollection() {
                     try {
                         token = sessionStorage.getItem('token') || '';
-                        const db_url = 'https://fabdb.pockethost.io';
-                        const res = await fetch(db_url + '/api/collections/myrepair_vehicles/records', {
+                        const res = await fetch(DB_URL + '/api/collections/myrepair_vehicles/records', {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -115,7 +117,7 @@
                 },
                 init() {
                     if (sessionStorage.hasOwnProperty('isSignedIn')) {
-                        // Fetch data when browser is reloaded
+                        // Fetch db collection when browser is reloaded
                         this.fetchCollection();
                     }
                 }
@@ -129,8 +131,7 @@
                 message: '',
                 async signin() {
                     try {
-                        const db_url = 'https://fabdb.pockethost.io';
-                        const response = await fetch(db_url + '/api/collections/users/auth-with-password', {
+                        const response = await fetch(DB_URL + '/api/collections/users/auth-with-password', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -147,10 +148,8 @@
                             sessionStorage.setItem("token", data.token);
                             sessionStorage.setItem("isSignedIn", "true");
 
-                            // Fetch the collection data after successful sign-in
                             this.fetchCollection();
-                            // can I avoid reloading the whole page?
-                            location.reload();
+                            location.reload(); // can I avoid reloading the whole page?
 
                         } else {
                             this.message = data.message || 'Invalid username or password.';
@@ -167,8 +166,7 @@
                 signout() {
                     sessionStorage.removeItem('token');
                     sessionStorage.removeItem('isSignedIn');
-                    // can I avoid reloading the whole page?
-                    location.reload();
+                    location.reload(); // can I avoid reloading the whole page?
                 }
             };
         }
