@@ -17,13 +17,10 @@ use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https
 
 ### Current Status
 
-
-<div style="display: flex; justify-content:center; alight-items:center; gap:10px;">
+<p align="center" width="100%">
   <img src="assets/app1.png" width="300px">
   <img src="assets/app2.png" width="300px">
-</div>
-
-
+</p>
 
 ## Interesting Topics
 
