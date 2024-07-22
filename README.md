@@ -1,29 +1,27 @@
 A web app to *elegantly solve* motorbike fleet repairs.
 
-https://fabriziotappero.github.io/myRepair/index.html
+<p align="center">
+  <a href="https://fabriziotappero.github.io/myRepair/index.html">https://fabriziotappero.github.io/myRepair/index.html</a>
+</p>
 
 ### Frontend
-All styling is done in [Pico CSS](https://picocss.com/) and all icons are from [Boxicon](https://boxicons.com/). 
-Javascript is kept to a minimum with [Alpine JS](https://alpinejs.dev/start-here). Future versions of this app 
-will use [HTMX](https://htmx.org/) running somewhere.
+All styling is done in [Pico CSS](https://picocss.com/) and all icons are from [Font Awesome](https://fontawesome.com/icons). 
+Javascript is vanilla Javascript and kept to a minimum with [Alpine JS](https://alpinejs.dev/start-here). Future versions of this app 
+will probably use [HTMX](https://htmx.org/) running somewhere.
 
-If Pico CSS is not enough, you can fold back to [Tailwind CSS](https://tailwindcss.com/)
+Where Pico CSS is not enough, thre is CSS.
 
 ### Backend
 [Golang](https://golang.org/) is the preferred language here but for for the first prototyping we are goind to
 use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https://app.pockethost.io/).
 
-### TODOS
+### CURRENT STATUS
 
-- [x] Implement simple index.html with a table. Use *picocss* and *boxicon*
-- [x] Implement *signin.html* and *signup.html*
-- [ ] Connect frontend sign in and sign up pages with poketbase database
-- [ ] Redesign index.html to include sign in and sign up pages
-- [ ] Create a periodic routine to update current database content with a remote
-      database using [job scheduling](https://pocketbase.io/docs/go-jobs-scheduling/)
-- [ ] Design main data viewer/editor in data.html
-- [ ] Modify data.html to provide different subset of data according to what user is logged in
-- [ ] Implement simple edit data in data.html
+<div div style="justify-content: center; display: flex; gap: 10px;">
+  <img src="assets/app1.png" width="300px">
+  <img src="assets/app2.png" width="300px">
+</div>
+
 
 ## Interesting Topics
 
@@ -31,3 +29,7 @@ While developing this app, I faced some interesting problems worth mentioning.
 
 Where to store a token?
 https://blog.ropnop.com/storing-tokens-in-browser/
+
+Use AlpineJS for data fetch and table sorting
+https://www.raymondcamden.com/2022/05/02/building-table-sorting-and-pagination-in-alpinejs
+
