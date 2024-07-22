@@ -52,18 +52,22 @@
                 <thead>
                     <tr>
                         <th scope="col"></th>
+                        <th scope="col" class="hide-on-mobile"><i class="fa-solid fa-fingerprint fa-xl"></i></th>
+                        <th scope="col"><i class="fa-solid fa-passport fa-xl"></i></th>
+                        <th scope="col"><i class="fa-solid fa-temperature-empty fa-xl"></i></th>
                         <th scope="col"><i class="fa-solid fa-motorcycle fa-xl"></i></th>
                         <th scope="col"><i class="fa-solid fa-wrench fa-xl"></i></th>
-                        <th scope="col"><i class="fa-solid fa-house-user fa-xl"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <template x-for="item in collection" :key="item.id">
                         <tr>
                             <td><i class="fa-regular fa-sun" style="color:green"></i></td>
-                            <td x-text="item.rider_id"></td>
-                            <td x-text="item.repairer_id"></td>
-                            <td x-text="item.plate"></td>
+                            <td class="hide-on-mobile" x-text="item.vehicle_id"></td> // hide on mobile
+                            <td x-text="item.vehicle_plate"></td>
+                            <td x-text="item.vehicle_status"></td>
+                            <td x-text="item.rider_name"></td>
+                            <td x-text="item.repairer_name"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -98,7 +102,7 @@
                 async fetchCollection() {
                     try {
                         token = sessionStorage.getItem('token') || '';
-                        const res = await fetch(DB_URL + '/api/collections/myrepair_vehicles/records', {
+                        const res = await fetch(DB_URL + '/api/collections/myrepair_mainview/records', {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
