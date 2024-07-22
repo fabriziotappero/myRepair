@@ -15,9 +15,9 @@ Where Pico CSS is not enough, thre is CSS.
 [Golang](https://golang.org/) is the preferred language here but for for the first prototyping we are goind to
 use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https://app.pockethost.io/).
 
-### CURRENT STATUS
+### Current Status
 
-<div div style="justify-content: center; display: flex; gap: 10px;">
+<div div style="display: flex; justify-content:center; alight_items:center; gap:10px;">
   <img src="assets/app1.png" width="300px">
   <img src="assets/app2.png" width="300px">
 </div>
