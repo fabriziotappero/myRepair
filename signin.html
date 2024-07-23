@@ -1,7 +1,7 @@
 <div x-data="signinForm()" class="signin-form container" style="max-width: 500px;">
     <form @submit.prevent="signin">
         <h3>SIGN IN</h3>
-        <input type="text" name="username" placeholder="Username" x-model="username" autocapitalize="none" required />
+        <input type="text" name="username" placeholder="Username" x-model="username" onkeyup="this.value = this.value.toUpperCase();" required />
         <input type="password" name="password" placeholder="Password" x-model="password" required />
         <button type="submit">Sign in</button>
     </form>
