@@ -18,7 +18,9 @@ use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https
 ### Main UI
 
 <p align="center" width="100%">
+  <kbd>
   <img src="play_around/repair_ui.jpg" width="300px">
+  </kbd>
 </p>
 
 ### Interesting Topics
