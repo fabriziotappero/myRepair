@@ -15,11 +15,10 @@ Where Pico CSS is not enough, thre is CSS.
 [Golang](https://golang.org/) is the preferred language here but for for the first prototyping we are goind to
 use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https://app.pockethost.io/).
 
-### Current Status
+### Main UI
 
 <p align="center" width="100%">
-  <img src="assets/app1.png" width="300px">
-  <img src="assets/app2.png" width="300px">
+  <img src="play_around/repair_ui.jpg" width="300px">
 </p>
 
 ### Interesting Topics
