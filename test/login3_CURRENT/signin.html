@@ -1,0 +1,15 @@
+<div x-data="loginForm()" class="container" style="max-width: 700px;">
+    <h3>SIGN IN</h3>
+    <form @submit.prevent="signin">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" x-model="email" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" x-model="password" required>
+        </div>
+        <button type="submit">Sign In</button>
+    </form>
+    <p x-text="message"></p>
+</div>

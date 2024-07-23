@@ -22,7 +22,7 @@ use the great [PoketBase](https://pocketbase.io/) hosted on [Pokethost.io](https
   <img src="assets/app2.png" width="300px">
 </p>
 
-## Interesting Topics
+### Interesting Topics
 
 While developing this app, I faced some interesting problems worth mentioning.
 

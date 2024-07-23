@@ -1,0 +1,9 @@
+<!-- collection-data.html -->
+<div x-show="collection.length > 0">
+    <h3>Collection Data:</h3>
+    <ul>
+        <template x-for="item in collection" :key="item.id">
+            <li x-text="item.text1"></li>
+        </template>
+    </ul>
+</div>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="icon" href="data:,"> <!-- This line prevents the favicon error -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Sign-in Section -->
+    <div id="signinSection" x-data="signinForm()" x-show="!token" @alpine:init="init()">
+        <div id="signinContainer"></div> <!-- Placeholder for signin.html content -->
+    </div>
+
+    <!-- Collection Data Section -->
+    <div id="collectionDataSection" x-show="token" @alpine:init="init()">
+        <div id="collectionDataContainer"></div> <!-- Placeholder for collection-data.html content -->
+    </div>
+
+    <script>
+        function signinForm() {
+            return {
+                email: '',
+                password: '',
+                message: '',
+                token: localStorage.getItem('token') || '',
+                collection: [],
+
+                async signin() {
+                    try {
+                        const res = await fetch('https://fabdb.pockethost.io/api/collections/users/auth-with-password', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ identity: this.email, password: this.password })
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            this.message = 'Sign in successful!';
+                            this.token = data.token;
+                            localStorage.setItem('token', this.token);
+                            await this.fetchCollectionData();
+                        } else {
+                            this.message = 'Sign in failed: ' + data.message;
+                            this.token = '';
+                            localStorage.removeItem('token');
+                        }
+                    } catch (error) {
+                        this.message = 'Sign in failed: ' + error.message;
+                    }
+                },
+
+                async fetchCollectionData() {
+                    if (!this.token) {
+                        this.message = 'No token available. Please sign in.';
+                        return;
+                    }
+                    try {
+                        const res = await fetch('https://fabdb.pockethost.io/api/collections/test_collection/records', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${this.token}`
+                            }
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            this.collection = data.items;  // Adjust depending on your API response structure
+                        } else {
+                            this.message = 'Failed to fetch collection data: ' + data.message;
+                            if (res.status === 401) {  // Unauthorized
+                                this.token = '';
+                                localStorage.removeItem('token');
+                                this.message += ' Please sign in again.';
+                            }
+                        }
+                    } catch (error) {
+                        this.message = 'Failed to fetch collection data: ' + error.message;
+                    }
+                },
+
+                async signout() {
+                    this.token = '';
+                    localStorage.removeItem('token');
+                    this.message = 'You have been signed out.';
+                    this.collection = [];
+                    this.init(); // Reinitialize state
+                },
+
+                async init() {
+                    if (this.token) {
+                        await this.fetchCollectionData();
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('signinForm', signinForm);
+        });
+
+        // Load navbar HTML
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar.html:', error));
+
+            // Load signin HTML
+            fetch('signin.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('signinContainer').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading signin.html:', error));
+
+            // Load collection data HTML
+            fetch('collection-data.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('collectionDataContainer').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading collection-data.html:', error));
+        });
+    </script>
+</body>
+
+</html>

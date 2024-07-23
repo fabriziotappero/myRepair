@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <script src="../../assets/alpine.min.js" defer></script>
+</head>
+
+<body>
+
+    <nav class="container">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">About</a></li>
+                <li><a href="index.html">Contact</a></li>
+                <li><a @click="signout" x-data="signoutLink()" x-show="isSignedIn">Sign out</a></li>
+            </ul>
+        </nav>
+    </nav>
+
+    <div class="container">
+        <div id="content"></div>
+    </div>
+
+    <footer style="text-align:center; color:rgb(212, 210, 210);">Copyright &copy;
+        <span x-data="" x-text="new Date().getFullYear()"></span>
+    </footer>
+
+    <script src="logic.js"></script>
+</body>
+
+</html>
