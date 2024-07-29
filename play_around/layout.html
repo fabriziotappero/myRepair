@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css">
 
     <style>
-        .gray {
-            background-color: lightgray;
-        }
-
         .huge {
             font-size: xx-large;
         }
@@ -23,8 +19,14 @@
             /* gap between columns */
             gap: 10px;
             /* padding around grid */
-            padding: 20px;
+            padding: 10px;
 
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5px;
         }
     </style>
 
@@ -32,43 +34,60 @@
 
 <body>
 
-    <div class="container-fluid">
+    <div class="container">
 
-        <div class="grid_container">
+        <section>
+            <div class="grid_container">
 
-            <div class="left-column">
-                <div> <strong>Maria Jose Carmenlli</strong></div>
-                <div class="pico-color-zinc-250">Rider</div>
+                <div class="left-column">
+                    <div> <strong>Maria Carmelli</strong></div>
+                    <div class="pico-color-zinc-250">Rider</div>
+                </div>
+
+                <div class="middle-column"></div>
+
+                <div class="right-column">
+                    <div>5h5h43h6</div>
+                    <div class="pico-color-zinc-250">Moto ID</div>
+                </div>
+
             </div>
+        </section>
 
-            <div class="middle-column">
+
+        <section>
+            <div class="grid_container">
+
+                <div class="left-column">
+                    <div class="huge">12 dias</div>
+                    <div class="pico-color-zinc-250">Dias retraso</div>
+                </div>
+
+                <div class="middle-column">
+                    <div class="huge">234 min</div>
+                    <div class="pico-color-zinc-250">Ultimo contacto</div>
+                </div>
+
+                <div class="right-column">
+                    <div class="huge">345€</div>
+                    <div class="pico-color-zinc-250">Cose reparacion</div>
+                </div>
+
             </div>
+        </section>
 
-            <div class="right-column">
-                <div>5h5h43h6</div>
-                <div class="pico-color-zinc-250">Moto ID</div>
-            </div>
-
-        </div>
-
-        <div class="grid_container">
-
-            <div class="left-column">
-                <div class="huge">12 dias</div>
-                <div class="pico-color-zinc-250">Dias retraso</div>
-            </div>
-
-            <div class="middle-column">
-                <div class="huge">234 min</div>
-                <div class="pico-color-zinc-250">Ultimo contacto</div>
-            </div>
-
-            <div class="right-column">
-                <div class="huge">345€</div>
-                <div class="pico-color-zinc-250">Cose reparacion</div>
-            </div>
-
-        </div>
+        <section>
+            <fieldset>
+                <label for="priority">Estato Reparacion</label>
+                <input id="priority" name="priority" type="range" min="1" max="4" step="1" value="1" />
+                <div class="range-labels">
+                    <span>Min</span>
+                    <span>Low</span>
+                    <span>Medium</span>
+                    <span>High</span>
+                </div>
+            </fieldset>
+        </section>
 
     </div>
 
