@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css">
+
+    <style>
+        .gray {
+            background-color: lightgray;
+        }
+
+        .huge {
+            font-size: xx-large;
+        }
+
+        .grid_container {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            /* gap between columns */
+            gap: 10px;
+            /* padding around grid */
+            padding: 20px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="grid_container">
+
+            <div class="left-column">
+                <div> <strong>Maria Jose Carmenlli</strong></div>
+                <div class="pico-color-zinc-250">Rider</div>
+            </div>
+
+            <div class="middle-column">
+            </div>
+
+            <div class="right-column">
+                <div>5h5h43h6</div>
+                <div class="pico-color-zinc-250">Moto ID</div>
+            </div>
+
+        </div>
+
+        <div class="grid_container">
+
+            <div class="left-column">
+                <div class="huge">12 dias</div>
+                <div class="pico-color-zinc-250">Dias retraso</div>
+            </div>
+
+            <div class="middle-column">
+                <div class="huge">234 min</div>
+                <div class="pico-color-zinc-250">Ultimo contacto</div>
+            </div>
+
+            <div class="right-column">
+                <div class="huge">345€</div>
+                <div class="pico-color-zinc-250">Cose reparacion</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
